@@ -5,7 +5,7 @@ export default {
     defaultOgImage: "",
     latestPosts: 5,
     postsPerPage: 5,
-    url: "",
+    url: "https://thecabinhotelgroup.com",
     social: {
         'dribbble': false,
         'facebook': false,
