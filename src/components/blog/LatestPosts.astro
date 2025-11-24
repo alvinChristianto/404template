@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import Post from "./Post.astro";
+import config from "../../config.mjs";
+
+const { postLimit = config.latestPosts, skipPost = "" } = Astro.props;
+
+const posts = (await getCollection('blog', ({ data }) => {
+    return !(data.title == skipPost) ;
+  })).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  ).slice(0, postLimit);
+---
+<section class="container mx-auto max-w-screen-lg px-7 py-10 mb-10">
+  <div class="mx-auto">
+    <p class="text-center text-pacamara-white pb-8 text-2xl">Terbaru dari <span class="gradient-underline text-teal-500">Keroncong Biru</span></p>
+    <p class="text-center text-pacamara-white pb-8 text-xl">Keroncong biru mempunyai berbagai kegiatan yang menunjang penampilan kami dalam event. Kegiatan-kegiatan tersebut antara lain latihan, reguler event, mengiringi koor dan acara keagamaan. Semua aktifitas ini kami wujudkan dalam blog berikut</p>
+  </div> 
+  
+   {
+        posts.map((post, index) => {
+          return <Post postData={post} num={index} />;
+        })
+    }
+</section>
